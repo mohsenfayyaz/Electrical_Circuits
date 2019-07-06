@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Electrical Circuit (NFS)</title>
+  <link rel="stylesheet" href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+    integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+  <link href="https://fonts.googleapis.com/css?family=Amiri" rel="stylesheet"> 
+  <script>
+    var data = {
+      id: "events@0.1.0",
+      nodes: {
+        "2": {
+          id: 2,
+          data: {},
+          group: null,
+          inputs: [],
+          outputs: [
+            {
+              connections: [
+                {
+                  node: 3,
+                  input: 0
+                }
+              ]
+            },
+            {
+              connections: [
+                {
+                  node: 3,
+                  input: 1
+                }
+              ]
+            }
+          ],
+          position: [114, 133],
+          title: "Keydown event"
+        },
+        "3": {
+          id: 3,
+          data: {},
+          group: null,
+          inputs: [
+            {
+              connections: [
+                {
+                  node: 2,
+                  output: 0
+                }
+              ]
+            },
+            {
+              connections: [
+                {
+                  node: 2,
+                  output: 1
+                }
+              ]
+            }
+          ],
+          outputs: [
+            {
+              connections: [
+                {
+                  node: 10,
+                  input: 0
+                }
+              ]
+            },
+            {
+              connections: [
+                {
+                  node: 11,
+                  input: 0
+                }
+              ]
+            }
+          ],
+          position: [443, 112],
+          title: "Enter pressed"
+        },
+        "10": {
+          id: 10,
+          data: {
+            msg: "Enter!"
+          },
+          group: null,
+          inputs: [
+            {
+              connections: [
+                {
+                  node: 3,
+                  output: 0
+                }
+              ]
+            }
+          ],
+          outputs: [],
+          position: [773, 106],
+          title: "Alert"
+        },
+        "11": {
+          id: 11,
+          data: {
+            msg: "Another key pressed"
+          },
+          group: null,
+          inputs: [
+            {
+              connections: [
+                {
+                  node: 3,
+                  output: 1
+                }
+              ]
+            }
+          ],
+          outputs: [],
+          position: [766, 292],
+          title: "Alert"
+        }
+      },
+      groups: {}
+    };
+  </script>
+
+  <style>
+    .back{
+		background: #1D976C;  /* fallback for old browsers */
+background: -webkit-linear-gradient(to right, #93F9B9, #bbb);  /* Chrome 10-25, Safari 5.1-6 */
+background: linear-gradient(to right, #93F9B9, #bbb); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+	}
+	</style>
+  <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+
+  <div class="row">
+    <div class="card column left bg-light" style="background-color:#aaa;">
+      <center>
+
+        <div class="card-header" style="background: white">
+          <h5 class="card-title">Electrical Circuit Project</h5>
+          Developers: Mohsen Fayyaz, Kiarash Norouzi, MohammadMahdi Salehi
+        </div>
+        <div class="card-body">
+
+
+          <button onClick="run()" type="button" class="btn btn-outline-success btn-lg">Run</button>
+          <!-- Large modal -->
+          <button type="button" class="btn btn-outline-info btn-lg" data-toggle="modal" data-target="#exampleModal">Info</button>
+          <p class="card-text"></p>
+
+        </div>
+
+      </center>
+      <pre id="data" style="padding: 10px;"></pre>
+    </div>
+    <div class="column right" style="background-color:#bbb;">
+      <div id="rete" class="node-editor"></div>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel"><center>Info</center></h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" style="direction: rtl; text-align: right; font-size: 1.1rem; font-family: 'Amiri', serif;">
+          <b>
+            راهنمای برنامه :
+          </b>
+          <ol class="custom-counter">
+              <li>با کلیک راست روی صفحه می‌توان از بین عنصرها یکی را به مدار اضافه کرد.</li>
+              <li>با کلیک راست روی هر عنصر مدار می‌توان آن را حذف کرد. </li>
+              <li>با کلیک بر روی سر خروجی هر عنصر، می‌توان با سیم آن را به سر ورودی عنصر دیگر متصل کرد. اگر منصرف از کشیدن سیم شده‌اید کافی است به نقطه‌ای دور در صفحه کلیک کنید. اگر در کشیدن سیم اشتباهی شده باشد مي‌توان با کلیک بر روی اینپوت عنصر مقصد، سیم را جدا کرده و با کلیک بر نقطه‌ای دور تر آن را مطابق آنچه گفته شده، حذف کرد.</li>
+              <li>با scroll روی صفحه می‌توان zoom in و zoom out ، به نقطه‌ای که کِرسِر موس قرار دارد کرد.</li>
+              <li>برای  هر عنصر ، فیلدی نوشتاری قرار داده شده است که در آن می‌توان مقدار متناسب هر عنصر در مدار را قرار داد. (نیازی به نوشتن واحد نیست)</li>
+              <li>با استفاده از قابلیت‌های بالا و قوانین زیر می‌توان به راحتی جواب مدار خود را با کلیک بر روی Run دید.</li>
+          </ol>
+
+          <b><br>
+            قوانین:
+          </b>
+          <ol class="custom-counter">
+              <li>بین هر عنصر کلیدی در مدار، حتما باید یک عنصر node قرار گیرد و برای تعیین کردن اتصال بین عناصر باید آنها را به ورودی و خروجی عنصر node متصل کرد و ترتیب وصل شدن و قرار گیری در ورودی یا خروجی node اهمیت ندارد.</li>
+              <li>حتما یکی از عناصر  node را با استفاده از قرار دادن <b>1-</b> در فیلد ورودی ، به عنوان گراند تعیین کنید.</li>
+              <li>سر Out عناصر source مانند Vs و Is ، به عنوان سر مثبت منبع ولتاژ و سر خروجی منبع جریان است. برای برعکس کردن این موضوع می‌توان از عناصر Vs reverse  و Is reverse استفاده کرد.</li>
+          </ol>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button> -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <script src='https://cdn.jsdelivr.net/npm/rete@1.0.0-alpha.9/build/rete.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/alight@0.14.1/alight.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/rete-alight-render-plugin@0.1.5/build/alight-render-plugin.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/rete-connection-plugin@0.1.2/build/connection-plugin.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/rete-context-menu-plugin@0.1.4/build/context-menu-plugin.min.js'></script>
+  <script src='https://cdn.jsdelivr.net/npm/rete-task-plugin@0.1.7/build/task-plugin.min.js'></script>
+
+
+  <script src="js/index.js"></script>
+
+  <script src='https://cdn.jsdelivr.net/npm/rete-comment-plugin@0.2.0/build/comment-plugin.debug.js'></script>
+  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js" integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+    crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/bootstrap-material-design@4.1.1/dist/js/bootstrap-material-design.js" integrity="sha384-CauSuKpEqAFajSpkdjv3z9t8E7RlpJ1UP0lKM/+NdtSarroVKu069AlsRPKkFBz9"
+    crossorigin="anonymous"></script>
+  <script>
+    $(document).ready(function () {
+      $('body').bootstrapMaterialDesign();
+    });
+  </script>
+
+
+</body>
+
+</html>
